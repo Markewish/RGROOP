@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: #051e28;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerFiles.ErrorController">
+   <children>
+      <Label layoutX="14.0" layoutY="7.0" text="ERROR MESSAGE" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Line endX="270.0" layoutX="115.0" layoutY="42.0" startX="-100.0" stroke="#d01010" />
+      <Label fx:id="LabelTextError" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="15.0" layoutY="91.0" prefHeight="94.0" prefWidth="371.0" text="text" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imageExit" fitHeight="20.0" fitWidth="20.0" layoutX="366.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Image/clearIcon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="15.0" layoutY="74.0" text="Error message text:" textFill="#a1a1a1" />
+   </children>
+</AnchorPane>

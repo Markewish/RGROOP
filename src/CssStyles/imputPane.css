@@ -1,0 +1,11 @@
+#paneInp {
+    -fx-background-color: #293e4f;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.text-field {
+    -fx-background-radius: 0;
+    -fx-background-color: #293e4f;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 14px;
+}

@@ -1,0 +1,40 @@
+.root{
+    -fx-background-color: #3a8841;
+    -fx-background-color: #051e28;
+    -fx-background-color: #255a60;
+    -fx-background-color: #575c63;
+    -fx-background-color: #1f2122;
+    -fx-background-color: #afc0d7;
+    -fx-background-color: #1b2726;
+    -fx-background-color: #3c5148;
+    -fx-background-color: #6b8e4e;
+    -fx-background-color: #b2c5b3;
+    -fx-background-color: #293e4f;
+    -fx-background-color: #243748;
+}
+.tree-view, .tree-cell {
+    -fx-background-color: #1f2122;
+    -fx-text-fill: white ;
+}
+.tree-cell {
+    -fx-font-size: 16px;
+}
+.tree-cell:expanded{
+
+}
+.tree-cell:selected {
+    -fx-font-weight: bold;
+}
+.button {
+    -fx-background-radius: 0;
+    -fx-background-color: #293e4f;
+    -fx-text-fill: white;
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+.button:hover {
+    -fx-background-color: #243748;
+}
+#mainWindow{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}

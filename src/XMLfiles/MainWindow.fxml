@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane id="mainWindow" fx:id="windowMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #051e28;" stylesheets="@../CssStyles/MainStyles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerFiles.MainController">
+   <children>
+      <TreeView fx:id="TreePlanet" focusTraversable="false" minHeight="200.0" minWidth="100.0" onContextMenuRequested="#mouseClick" onMouseClicked="#mouseClick" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: ;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="35.0" />
+      <Pane prefHeight="30.0" prefWidth="600.0" style="-fx-background-color: #293e4f;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <effect>
+            <DropShadow color="#242b2c75" />
+         </effect>
+      </Pane>
+      <Pane layoutX="410.0" layoutY="35.0" prefHeight="200.0" prefWidth="190.0" style="-fx-background-color: #293e4f;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+         <children>
+            <Pane prefHeight="70.0" prefWidth="190.0" style="-fx-background-color: #243748;">
+               <children>
+                  <ImageView fx:id="imageHeader" fitHeight="60.0" fitWidth="60.0" layoutX="65.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Image/starSystem.PNG" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Line endX="88.0" layoutX="101.0" layoutY="70.0" startX="-100.0" stroke="#6b8e4e" strokeWidth="2.0" />
+            <VBox layoutY="71.0" prefHeight="294.0" prefWidth="190.0">
+               <children>
+                  <Button fx:id="btAdd" mnemonicParsing="false" onAction="#ADD" prefHeight="25.0" prefWidth="190.0" text="ADD">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="brRemove" mnemonicParsing="false" onAction="#REMOVE" prefHeight="25.0" prefWidth="190.0" text="REMOVE">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btEdint" mnemonicParsing="false" onAction="#EDIT" prefHeight="25.0" prefWidth="190.0" text="EDIT">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btSearch" mnemonicParsing="false" onAction="#SEARCH" prefHeight="25.0" prefWidth="190.0" text="SEARCH">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btRestore" mnemonicParsing="false" onAction="#RESTORE" prefHeight="25.0" prefWidth="190.0" text="RESTORE">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane fx:id="paneCloseBlur" opacity="0.15" prefHeight="0.0" prefWidth="345.0" style="-fx-background-color: #293e4f;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pane id="paneInp" fx:id="showInfoPane" layoutX="-360.0" layoutY="78.0" prefHeight="360.0" prefWidth="350.0" style="-fx-background-color: #293e4f;" stylesheets="@../CssStyles/showPane.css">
+         <children>
+            <Line endX="248.0" layoutX="101.0" layoutY="32.0" startX="-100.0" stroke="#6b8e4e" strokeWidth="2.0" />
+            <Label layoutX="323.0" layoutY="-4.0" onMouseClicked="#closeLabel" prefHeight="35.0" prefWidth="27.0" text="&lt;" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="infoPaneLabel" layoutX="7.0" layoutY="2.0" text="Label" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Pane layoutX="24.0" layoutY="33.0" prefHeight="54.0" prefWidth="302.0">
+               <children>
+                  <Label fx:id="labeltext1" layoutX="4.0" layoutY="30.0" prefHeight="20.0" prefWidth="294.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="header1" layoutX="4.0" layoutY="2.0" prefHeight="20.0" prefWidth="294.0" text="Name:" textFill="#051e28">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Line endX="200.0" layoutX="101.0" layoutY="27.0" startX="-100.0" stroke="#051e28" strokeWidth="2.0" />
+               </children>
+            </Pane>
+            <Pane layoutX="24.0" layoutY="87.0" prefHeight="54.0" prefWidth="302.0">
+               <children>
+                  <Label fx:id="labeltext2" layoutX="4.0" layoutY="30.0" prefHeight="20.0" prefWidth="294.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="header2" layoutX="4.0" layoutY="2.0" prefHeight="20.0" prefWidth="294.0" text="Mass:" textFill="#051e28">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Line endX="200.0" layoutX="101.0" layoutY="27.0" startX="-100.0" stroke="#051e28" strokeWidth="2.0" />
+               </children>
+            </Pane>
+            <Pane layoutX="24.0" layoutY="137.0" prefHeight="54.0" prefWidth="302.0">
+               <children>
+                  <Label fx:id="labeltext3" layoutX="4.0" layoutY="30.0" prefHeight="20.0" prefWidth="294.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="header3" layoutX="4.0" layoutY="2.0" prefHeight="20.0" prefWidth="294.0" text="Header3" textFill="#051e28">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Line endX="200.0" layoutX="101.0" layoutY="27.0" startX="-100.0" stroke="#051e28" strokeWidth="2.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="paneHeader4" layoutX="24.0" layoutY="191.0" prefHeight="54.0" prefWidth="302.0">
+               <children>
+                  <Label fx:id="labeltext4" layoutX="4.0" layoutY="30.0" prefHeight="20.0" prefWidth="294.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="header4" layoutX="4.0" layoutY="2.0" prefHeight="20.0" prefWidth="294.0" text="Header4" textFill="#051e28">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Line endX="200.0" layoutX="101.0" layoutY="27.0" startX="-100.0" stroke="#051e28" strokeWidth="2.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="paneHeader5" layoutX="24.0" layoutY="245.0" prefHeight="54.0" prefWidth="302.0">
+               <children>
+                  <Label fx:id="labeltext5" layoutX="4.0" layoutY="30.0" prefHeight="20.0" prefWidth="294.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="header5" layoutX="4.0" layoutY="2.0" prefHeight="20.0" prefWidth="294.0" text="Header5" textFill="#051e28">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Line endX="200.0" layoutX="101.0" layoutY="27.0" startX="-100.0" stroke="#051e28" strokeWidth="2.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="paneHeader6" layoutX="24.0" layoutY="299.0" prefHeight="54.0" prefWidth="302.0">
+               <children>
+                  <Label fx:id="labeltext6" layoutX="4.0" layoutY="30.0" prefHeight="20.0" prefWidth="294.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="header6" layoutX="4.0" layoutY="2.0" prefHeight="20.0" prefWidth="294.0" text="Header6" textFill="#051e28">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Line endX="200.0" layoutX="101.0" layoutY="27.0" startX="-100.0" stroke="#051e28" strokeWidth="2.0" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane id="findPane" fx:id="panelFindInTreeView" layoutX="61.0" layoutY="510.0" prefHeight="137.0" prefWidth="400.0" stylesheets="@../CssStyles/showPane.css">
+         <children>
+            <Line endX="298.0" layoutX="101.0" layoutY="31.0" startX="-100.0" stroke="#051e28" />
+            <Label fx:id="closeFindPane" layoutX="367.0" layoutY="-7.0" onMouseClicked="#closeLabel" prefHeight="35.0" prefWidth="27.0" rotate="-90.0" text="&lt;" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="7.0" layoutY="6.0" text="FIND STAR-PLANET-SATELLITE" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="346.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Image/SearchIcon.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="24.0" layoutY="41.0" text="Enter the query:" textFill="#051e28" />
+            <TextField id="textFieldFind" layoutX="25.0" layoutY="64.0" prefHeight="30.0" prefWidth="315.0" />
+            <Line endX="240.0" layoutX="125.0" layoutY="94.0" startX="-100.0" />
+         </children>
+      </Pane>
+      <Pane id="paneInp" fx:id="inputPanel" layoutX="150.0" layoutY="-435.0" prefHeight="420.0" prefWidth="400.0" stylesheets="@../CssStyles/imputPane.css">
+         <children>
+            <AnchorPane fx:id="anchOane" prefHeight="420.0" prefWidth="400.0">
+               <children>
+                  <Line endX="298.0" layoutX="101.0" layoutY="34.0" startX="-100.0" stroke="#6b8e4e" strokeWidth="2.0" />
+                  <Button mnemonicParsing="false" onAction="#addNewSpaceOffice" prefHeight="37.0" prefWidth="400.0" text="APPLAY" AnchorPane.bottomAnchor="0.0" />
+                  <Label fx:id="LabelPaneAdd" layoutX="7.0" layoutY="2.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="imageClose" fitHeight="20.0" fitWidth="20.0" layoutX="373.0" layoutY="7.0" onMouseClicked="#closeOpenPane" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Image/clearIcon.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="label1" layoutX="21.0" layoutY="50.0" text="name star" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textField1" layoutX="21.0" layoutY="70.0" prefHeight="30.0" prefWidth="356.0" />
+                  <Line endX="255.0" layoutX="122.0" layoutY="100.0" startX="-100.0" stroke="#051e28" />
+                  <Label fx:id="label2" layoutX="21.0" layoutY="101.0" text="name star system" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textField2" layoutX="21.0" layoutY="121.0" prefHeight="30.0" prefWidth="356.0" />
+                  <Line endX="255.0" layoutX="122.0" layoutY="151.0" startX="-100.0" stroke="#051e28" />
+                  <Label fx:id="label3" layoutX="21.0" layoutY="152.0" text="number of planets" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textField3" layoutX="21.0" layoutY="172.0" prefHeight="30.0" prefWidth="356.0" />
+                  <Line endX="255.0" layoutX="122.0" layoutY="202.0" startX="-100.0" stroke="#051e28" />
+                  <Label fx:id="label4" layoutX="21.0" layoutY="203.0" text="avarage temperature" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textField4" layoutX="21.0" layoutY="223.0" prefHeight="30.0" prefWidth="356.0" />
+                  <Line fx:id="line1" endX="255.0" layoutX="122.0" layoutY="253.0" startX="-100.0" stroke="#051e28" />
+                  <Label fx:id="label5" layoutX="20.0" layoutY="254.0" text="avarage temperature" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textField5" layoutX="20.0" layoutY="274.0" prefHeight="30.0" prefWidth="356.0" />
+                  <Line fx:id="line2" endX="255.0" layoutX="121.0" layoutY="304.0" startX="-100.0" stroke="#051e28" />
+                  <Label fx:id="label6" layoutX="21.0" layoutY="305.0" text="avarage temperature" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textField6" layoutX="21.0" layoutY="325.0" prefHeight="30.0" prefWidth="356.0" />
+                  <Line fx:id="line3" endX="255.0" layoutX="122.0" layoutY="355.0" startX="-100.0" stroke="#051e28" />
+               </children>
+            </AnchorPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
