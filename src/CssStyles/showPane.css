@@ -16,3 +16,9 @@
 #textFieldFind{
     -fx-background-color: #3c5148;
 }
+#findImage:hover, #closelabel1:hover {
+    -fx-effect: dropshadow(three-pass-box, #293e4f, 2, 1, 1, 1);
+}
+#closelabel2:hover {
+    -fx-effect: dropshadow(three-pass-box, #051e28, 2, 1, 1, 1);
+}

@@ -17,6 +17,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
+import jdk.nashorn.api.tree.Tree;
+
 import java.io.*;
 
 public class MainController {
@@ -26,9 +28,9 @@ public class MainController {
     @FXML
     private ImageView imageHeader, imageClose;
     @FXML
-    private Button btAdd, btRestore, btSearch, btEdint, brRemove;
+    private Button btAdd, btRestore, btSearch, btEdint, brRemove, btStore;
     @FXML
-    private Pane inputPanel, paneCloseBlur,
+    private Pane inputPanel, paneCloseBlur, paneCloseBlur2,
             showInfoPane, paneHeader4, paneHeader5, paneHeader6,
             panelFindInTreeView;
     @FXML
@@ -37,9 +39,10 @@ public class MainController {
     private Label LabelPaneAdd, label1, label2, label3, label4, label5, label6,
             labeltext1, labeltext2, labeltext3, labeltext5, labeltext4, labeltext6,
             header1, header2, header3, header4, header5, header6,
-            infoPaneLabel, closeFindPane;
+            infoPaneLabel;
     @FXML
-    private TextField textField1, textField2, textField3, textField4, textField5, textField6;
+    private TextField textField1, textField2, textField3, textField4, textField5, textField6,
+            textFieldFind;
     @FXML
     private Line line1, line2, line3;
     //вспомагательные переменные
@@ -52,6 +55,9 @@ public class MainController {
     private static Satellits sl;
     private static TreeItem pr;
 
+    private static TreeItem spaceOffice;
+    private TreeItem tempNode = null;
+
     @FXML
     public void initialize(){
         System.out.println("LOAD MAIN CONTROLLER");
@@ -60,6 +66,7 @@ public class MainController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        btStore.setVisible(false);
         btRestore.setVisible(false);
     }
     //СТАРТОВАЯ ИНИЦИАЛИЗАЦИЯ
@@ -67,7 +74,7 @@ public class MainController {
         Stars star = new Stars("СОЛНЦЕ","СОЛНЕЧНАЯ СИСТЕМА", 100000000, 10000.0, 8);
         Planet planet = new Planet("ЗЕМЛЯ", 30000000.0, 700000000, 0.80, 40.5, 1);
         Satellits satellit = new Satellits("ЛУНА", 55000000, 20.0);
-        TreeItem spaceOffice = new TreeItem<>("SPACE OFFICE", getImageInTreeItem("starSystem"));
+        spaceOffice = new TreeItem<>("SPACE OFFICE", getImageInTreeItem("starSystem"));
         TreeItem stars = new TreeItem<>(star, getImageInTreeItem("star"));
         TreeItem planets = new TreeItem<>(planet, getImageInTreeItem("planet"));
         TreeItem satellits = new TreeItem<>(satellit, getImageInTreeItem("satellites"));
@@ -220,6 +227,12 @@ public class MainController {
         }else if (pos.equals("up")){
             trP.setToY(0);
             paneCloseBlur.setPrefHeight(0);
+        } else if(pos.equals("up2")){
+            paneCloseBlur2.setPrefHeight(windowMain.getPrefHeight());
+            trP.setToY(-panePosition);
+        } else if(pos.equals("down2")){
+            trP.setToY(0);
+            paneCloseBlur2.setPrefHeight(0);
         }
         trP.play();
     }
@@ -337,6 +350,7 @@ public class MainController {
         TreeItem tree =  getSelectedTreeNode();
         if(tree == null || (tree.getValue().equals("SPACE OFFICE"))) return;
         tree.getParent().getChildren().remove(tree);
+        namePanel = "";
     }
     //ПОЛУЧИТЬ УЗЕЛ
     private TreeItem getSelectedTreeNode(){
@@ -400,38 +414,49 @@ public class MainController {
         return false;
     }
 
-    //ОТКРЫТИЕ ФАЙЛА
-    private void openFile(){
-        FileChooser fileChooser = new FileChooser();
-        File file;
-        try{
-            fileChooser.setTitle("OPEN SPACE OFFICE");
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
-            file = fileChooser.showOpenDialog(null);
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file.getAbsolutePath()));
-            TreeView tree = (TreeView) in.readObject();
-            TreePlanet = tree;
-            in.close();
-        }catch (Exception e){
-
-        }
-    }
     //СОХРАНЕНИЕ В ФАЙЛ
     private void saveInFile(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("SPACE OFFICE");
         try{
+            TreeItem tempTree;
             File file = fileChooser.showSaveDialog(null);
             FileOutputStream fileStream = new FileOutputStream(file.getAbsolutePath());
             ObjectOutputStream out = new ObjectOutputStream(fileStream);
-            out.writeObject(TreePlanet.getRoot());
+            for(Object star : spaceOffice.getChildren()){
+                out.writeObject((Stars) ((TreeItem) star).getValue());
+                for(Object planet: ( (TreeItem)star).getChildren() ){
+                    out.writeObject((Planet) ((TreeItem) planet).getValue());
+                    //поиск по списку спутников
+                    for(Object satellite: ((TreeItem)planet).getChildren() ){
+                        out.writeObject((Satellits) ((TreeItem) satellite).getValue());
+                    }
+                }
+            }
             out.close();
-            System.out.println(file);
-            System.out.println(file.getAbsolutePath());
         }catch (Exception e){
             System.out.println("ERRRRRRRRRRRRROOOOOOOOOOOOORRRRRRR");
         }
 
+    }
+    //ОТКРЫТИЕ ФАЙЛА
+    private void openFile(){
+        try{
+            FileChooser fileChooser = new FileChooser();
+            File file;
+            fileChooser.setTitle("OPEN SPACE OFFICE");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
+            file = fileChooser.showOpenDialog(null);
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file.getAbsolutePath()));
+            spaceOffice.getChildren().addAll((TreeItem) in.readObject());
+            TreePlanet.setRoot(spaceOffice);
+            in.close();
+        }catch (Exception e){
+            System.out.println("Error open file");
+        }
+        for(Object star : spaceOffice.getChildren()){
+            System.out.println(((TreeItem)star).getValue().toString());
+        }
     }
 
     //ОБРАБОТЧИКИ НАЖАТИЯ КЛАВИШИ
@@ -454,15 +479,11 @@ public class MainController {
         }
     }
     public void STORE(ActionEvent actionEvent)throws IOException {
-        //saveInFile();
+        if(spaceOfficeIsEmpty()) return;
+        saveInFile();
     }
     public void RESTORE(ActionEvent actionEvent)throws IOException {
-        //openFile();
-    }
-
-    //ПОИСК ПО НАЗВАНИЮ
-    private void findNameNodeTreeView(){
-
+        openFile();
     }
 
     //ОТОБРАЖЕНИЕ ПОЛНОЙ ИНФОРМАЦИИ
@@ -470,39 +491,46 @@ public class MainController {
         TreeItem tree =  getSelectedTreeNode();
         if(tree.getValue().equals("SPACE OFFICE")) {}
         else {
-            paneCloseBlur.setPrefHeight(windowMain.getPrefHeight());
-            transformshowInfoPane("right");
+            showAndDownPaneBlur();
             switch (namePanel){
                 case"addPlanet":
-                    getStarInfo();
+                    getStarInfo(tempNode);
                     break;
                 case"addSatellites":
-                    getPlanetInfo();
+                    getPlanetInfo(tempNode);
                     break;
                 case"last":
-                    getSatellitInfo();
+                    getSatellitInfo(tempNode);
                     break;
             }
         }
     }
-    private void getStarInfo(){
+    private void showAndDownPaneBlur(){
+        paneCloseBlur.setPrefHeight(windowMain.getPrefHeight());
+        transformshowInfoPane("right");
+    }
+    private void getStarInfo(TreeItem tempNode){
         infoPaneLabel.setText("INFO STAR");
         paneHeader4.setVisible(true);
         paneHeader5.setVisible(true);
         paneHeader6.setVisible(false);
-        Stars stars = (Stars) getSelectedTreeNode().getValue();
+        Stars stars;
+        if(tempNode == null) stars = (Stars) getSelectedTreeNode().getValue();
+        else stars = ((Stars) tempNode.getValue());
         header1.setText("NAME STAR:"); labeltext1.setText(stars.getName());
         header2.setText("THE WEIGHT:"); labeltext2.setText(String.valueOf(stars.getMass()));
         header3.setText("NAME STAR SYSTEM:"); labeltext3.setText(stars.getStarSystem());
         header4.setText("NUMBER OF PLANET:"); labeltext4.setText(String.valueOf(stars.getNumberPlanets()));
         header5.setText("AVERAGE TEMPERATURE:"); labeltext5.setText(String.valueOf(stars.getAverageTemperature())+" C");
     }
-    private void getPlanetInfo(){
+    private void getPlanetInfo(TreeItem tempNode){
         infoPaneLabel.setText("INFO PLANET");
         paneHeader4.setVisible(true);
         paneHeader5.setVisible(true);
         paneHeader6.setVisible(true);
-        Planet planet = (Planet) getSelectedTreeNode().getValue();
+        Planet planet;
+        if(tempNode == null) planet = (Planet) getSelectedTreeNode().getValue();
+        else planet = ((Planet) tempNode.getValue());
         header1.setText("NAME PLANET:"); labeltext1.setText(planet.getName());
         header2.setText("THE WEIGHT:"); labeltext2.setText(String.valueOf(planet.getMass()));
         header3.setText("POPULATION:"); labeltext3.setText(String.valueOf(planet.getPopulation()) + " млрд.");
@@ -510,12 +538,14 @@ public class MainController {
         header5.setText("AVERAGE TEMPERATURE:"); labeltext5.setText(String.valueOf(planet.getAverageTemperature())+" C");
         header6.setText("OXYGEN LEVEL:"); labeltext6.setText(String.valueOf(planet.getOxygenLevel()) + " %");
     }
-    private void getSatellitInfo(){
+    private void getSatellitInfo(TreeItem tempNode){
         infoPaneLabel.setText("INFO SATELLITE");
         paneHeader4.setVisible(false);
         paneHeader5.setVisible(false);
         paneHeader6.setVisible(false);
-        Satellits satellits = (Satellits) getSelectedTreeNode().getValue();
+        Satellits satellits;
+        if(tempNode == null) satellits = (Satellits) getSelectedTreeNode().getValue();
+        else satellits = ((Satellits) tempNode.getValue());
         label1.setText("NAME SATELLITE:"); labeltext1.setText(satellits.getName());
         label2.setText("THE WEIGHT:"); labeltext2.setText(String.valueOf(satellits.getMass()));
         label3.setText("AVERAGE TEMPERATURE:"); labeltext3.setText(String.valueOf(satellits.getAverageTemperature()) + " C");
@@ -532,6 +562,52 @@ public class MainController {
         transformshowInfoPane("left");
     }
 
+    //Вызов панели поиска
     public void SEARCH(ActionEvent actionEvent) {
+        if(spaceOfficeIsEmpty()) return;
+        translatePanel("up2", panelFindInTreeView);
+    }
+    public void closeFindPane(MouseEvent mouseEvent) {
+        translatePanel("down2", panelFindInTreeView);
+    }
+    //поиск по значению
+    public void findIconOnButton(MouseEvent mouseEvent) {
+        if(textFieldFind.getText().equals("")) try { new ErrorWindow("No request," +
+                " enter query!"); return; } catch (IOException e) { }
+        findNameNodeTreeView();
+    }
+    //ПОИСК СООТВЕТСТВИЙ ВВОДИМОГО ЗНАЧЕНИЯ В ВЕТКЕ
+    private void findNameNodeTreeView(){
+        TreeItem tempTree;
+        //поиск по списку звезд
+        for(Object star : spaceOffice.getChildren()){
+            tempTree = ((TreeItem)star);
+            if(equalsText(tempTree)) { getStarInfo(tempTree); showAndDownPaneBlur(); return;}
+            for(Object planet: ( (TreeItem)star).getChildren() ){
+                tempTree = ((TreeItem)planet);
+                if(equalsText(tempTree)) { getPlanetInfo(tempTree); showAndDownPaneBlur(); return;}
+                //поиск по списку спутников
+                for(Object satellite: ((TreeItem)planet).getChildren() ){
+                    tempTree = ((TreeItem)satellite);
+                    if(equalsText(tempTree)) { getSatellitInfo(tempTree); showAndDownPaneBlur(); return;}
+                }
+            }
+        }
+        try { new ErrorWindow("Nothing found on request!"); return; } catch (IOException e) { }
+    }
+    private boolean equalsText(TreeItem tempTree){
+        if(tempTree.getValue().toString().toLowerCase().equals(textFieldFind.getText().toLowerCase().toString()))
+            return true;
+        return false;
+    }
+
+    //проверка на наличие дерева
+    private boolean spaceOfficeIsEmpty(){
+        if(spaceOffice.getChildren().isEmpty()){
+            try { new ErrorWindow("SPACE IS EMPTY!\n" +
+                    "Add a new star, planet, or satellite."); } catch (IOException e) {}
+        return true;
+        }
+        return false;
     }
 }

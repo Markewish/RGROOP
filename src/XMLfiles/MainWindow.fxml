@@ -15,7 +15,7 @@
 
 <AnchorPane id="mainWindow" fx:id="windowMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #051e28;" stylesheets="@../CssStyles/MainStyles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerFiles.MainController">
    <children>
-      <TreeView fx:id="TreePlanet" focusTraversable="false" minHeight="200.0" minWidth="100.0" onContextMenuRequested="#mouseClick" onMouseClicked="#mouseClick" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: ;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="35.0" />
+      <TreeView fx:id="TreePlanet" focusTraversable="false" minHeight="200.0" minWidth="100.0" onMouseClicked="#mouseClick" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="35.0" />
       <Pane prefHeight="30.0" prefWidth="600.0" style="-fx-background-color: #293e4f;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <effect>
             <DropShadow color="#242b2c75" />
@@ -55,6 +55,11 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
+                  <Button fx:id="btStore" mnemonicParsing="false" onAction="#STORE" prefHeight="25.0" prefWidth="190.0" text="STORE">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
                   <Button fx:id="btRestore" mnemonicParsing="false" onAction="#RESTORE" prefHeight="25.0" prefWidth="190.0" text="RESTORE">
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -64,11 +69,35 @@
             </VBox>
          </children>
       </Pane>
+      <Pane fx:id="paneCloseBlur2" opacity="0.15" prefHeight="0.0" prefWidth="700.0" style="-fx-background-color: #293e4f;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pane id="findPane" fx:id="panelFindInTreeView" layoutX="61.0" layoutY="510.0" prefHeight="137.0" prefWidth="400.0" stylesheets="@../CssStyles/showPane.css">
+         <children>
+            <Line endX="298.0" layoutX="101.0" layoutY="31.0" startX="-100.0" stroke="#051e28" />
+            <Label id="closelabel1" layoutX="367.0" layoutY="-7.0" onMouseClicked="#closeFindPane" prefHeight="35.0" prefWidth="27.0" rotate="-90.0" text="&lt;" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="7.0" layoutY="6.0" text="FIND STAR-PLANET-SATELLITE" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ImageView id="findImage" fitHeight="20.0" fitWidth="20.0" layoutX="346.0" layoutY="71.0" onMouseClicked="#findIconOnButton" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Image/SearchIcon.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="24.0" layoutY="41.0" text="Enter the query:" textFill="#051e28" />
+            <TextField id="textFieldFind" fx:id="textFieldFind" layoutX="25.0" layoutY="64.0" prefHeight="30.0" prefWidth="315.0" />
+            <Line endX="240.0" layoutX="125.0" layoutY="94.0" startX="-100.0" />
+         </children>
+      </Pane>
       <Pane fx:id="paneCloseBlur" opacity="0.15" prefHeight="0.0" prefWidth="345.0" style="-fx-background-color: #293e4f;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Pane id="paneInp" fx:id="showInfoPane" layoutX="-360.0" layoutY="78.0" prefHeight="360.0" prefWidth="350.0" style="-fx-background-color: #293e4f;" stylesheets="@../CssStyles/showPane.css">
          <children>
             <Line endX="248.0" layoutX="101.0" layoutY="32.0" startX="-100.0" stroke="#6b8e4e" strokeWidth="2.0" />
-            <Label layoutX="323.0" layoutY="-4.0" onMouseClicked="#closeLabel" prefHeight="35.0" prefWidth="27.0" text="&lt;" textFill="WHITE">
+            <Label id="closelabel2" layoutX="323.0" layoutY="-4.0" onMouseClicked="#closeLabel" prefHeight="35.0" prefWidth="27.0" text="&lt;" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
@@ -168,29 +197,6 @@
                   <Line endX="200.0" layoutX="101.0" layoutY="27.0" startX="-100.0" stroke="#051e28" strokeWidth="2.0" />
                </children>
             </Pane>
-         </children>
-      </Pane>
-      <Pane id="findPane" fx:id="panelFindInTreeView" layoutX="61.0" layoutY="510.0" prefHeight="137.0" prefWidth="400.0" stylesheets="@../CssStyles/showPane.css">
-         <children>
-            <Line endX="298.0" layoutX="101.0" layoutY="31.0" startX="-100.0" stroke="#051e28" />
-            <Label fx:id="closeFindPane" layoutX="367.0" layoutY="-7.0" onMouseClicked="#closeLabel" prefHeight="35.0" prefWidth="27.0" rotate="-90.0" text="&lt;" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="7.0" layoutY="6.0" text="FIND STAR-PLANET-SATELLITE" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="346.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Image/SearchIcon.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="24.0" layoutY="41.0" text="Enter the query:" textFill="#051e28" />
-            <TextField id="textFieldFind" layoutX="25.0" layoutY="64.0" prefHeight="30.0" prefWidth="315.0" />
-            <Line endX="240.0" layoutX="125.0" layoutY="94.0" startX="-100.0" />
          </children>
       </Pane>
       <Pane id="paneInp" fx:id="inputPanel" layoutX="150.0" layoutY="-435.0" prefHeight="420.0" prefWidth="400.0" stylesheets="@../CssStyles/imputPane.css">
