@@ -17,7 +17,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
-import jdk.nashorn.api.tree.Tree;
 
 import java.io.*;
 
@@ -130,7 +129,7 @@ public class MainController {
 
     //ОБРАБОТЧИК НАЖАТИЯ МИШИ
     public void mouseClick(MouseEvent mouseEvent){
-        //реакция на двойное нажатие
+        try{//реакция на двойное нажатие
         if(mouseEvent.getClickCount() == 2){
             showInformInTree();
         }
@@ -141,6 +140,7 @@ public class MainController {
             System.out.println("name => " + item.getValue().getClass());
             imageUpdateInThePanel(item);
         }
+        }catch (Exception e){}
     }
 
     //ОТОБРАЖЕНИЕ ПАНЕЛИ ВВОДА ДАНННЫХ
