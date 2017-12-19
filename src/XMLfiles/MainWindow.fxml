@@ -20,6 +20,10 @@
          <effect>
             <DropShadow color="#242b2c75" />
          </effect>
+         <children>
+            <Label layoutX="481.0" layoutY="6.0" text="Author of the program Nikolay Kostyrko" textFill="#797979" underline="true" />
+            <Label layoutX="7.0" layoutY="7.0" text="Use of JavaFx technologies" textFill="#797979" underline="true" />
+         </children>
       </Pane>
       <Pane layoutX="410.0" layoutY="35.0" prefHeight="200.0" prefWidth="190.0" style="-fx-background-color: #293e4f;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
